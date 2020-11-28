@@ -3,22 +3,25 @@ package discount
 import (
 	"github.com/ednailson/hash-challenge/discount-calculator/controller"
 	"golang.org/x/net/context"
-	"log"
 )
 
 type Server struct {
 	ctrl *controller.Controller
 }
 
-func CreateServer(ctrl *controller.Controller) *Server {
+func CreateDiscountServer(ctrl *controller.Controller) *Server {
 	return &Server{
 		ctrl: ctrl,
 	}
 }
 
 func (s *Server) CalculateDiscount(ctx context.Context, info *Info) (*Discount, error) {
+	discount, err := s.ctrl.CalculateDiscount(info.UserId, info.ProductId)
+	if err != nil {
+		return nil, err
+	}
 	return &Discount{
-		Percentage:   10,
-		ValueInCents: 100,
+		Percentage:   discount.Percentage,
+		ValueInCents: discount.ValueInCents,
 	}, nil
 }

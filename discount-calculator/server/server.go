@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func CreateServer(ctrl *controller.Controller, port int) (Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	discountServer := discount.CreateServer(ctrl)
+	discountServer := discount.CreateDiscountServer(ctrl)
 	grpcServer := grpc.NewServer()
 	discount.RegisterDiscountServiceServer(grpcServer, discountServer)
 	return &server{

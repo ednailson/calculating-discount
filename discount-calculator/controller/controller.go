@@ -18,7 +18,7 @@ func NewController(userColl, productColl database.Collection) *Controller {
 	}
 }
 
-func (c *Controller) CalculateDiscount(userId, productId string) (*ProductCommand, error) {
+func (c *Controller) CalculateDiscount(userId, productId string) (*Discount, error) {
 	userRead, err := c.userColl.ReadById(userId)
 	if err != nil {
 		return nil, err
@@ -38,15 +38,9 @@ func (c *Controller) CalculateDiscount(userId, productId string) (*ProductComman
 		return nil, err
 	}
 	discount, discountedPrice := product.CalculateDiscount(user)
-	return &ProductCommand{
-		Id:           product.Id,
-		PriceInCents: product.PriceInCents,
-		Title:        product.Title,
-		Description:  product.Description,
-		Discount: Discount{
-			Percentage:   discount,
-			ValueInCents: int(discountedPrice),
-		},
+	return &Discount{
+		Percentage:   discount,
+		ValueInCents: int32(discountedPrice),
 	}, nil
 }
 

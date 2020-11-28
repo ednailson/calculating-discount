@@ -43,15 +43,8 @@ func TestController(t *testing.T) {
 
 		g.Expect(err).ShouldNot(HaveOccurred())
 		g.Expect(*productCommand).Should(MatchAllFields(Fields{
-			"Id":           BeEquivalentTo(productDocMeta.Key),
-			"Title":        BeEquivalentTo("Notebook Gamer"),
-			"Description":  BeEquivalentTo("A great notebook"),
-			"PriceInCents": BeEquivalentTo(2000),
-			"Discount": MatchAllFields(Fields{
-				"Percentage":   BeEquivalentTo(5),
-				"ValueInCents": BeEquivalentTo(100),
-			},
-			),
+			"Percentage":   BeEquivalentTo(5),
+			"ValueInCents": BeEquivalentTo(100),
 		}))
 	})
 }
