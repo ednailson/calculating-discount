@@ -1,6 +1,30 @@
 version: "3.2"
 
 services:
+  product-list:
+    build: ./product-list
+    ports:
+      - "3333:3333"
+    networks:
+      back:
+        aliases:
+            - "product-list.service.com.br"
+    depends_on:
+      - arango
+      - discount-calculator
+
+  discount-calculator:
+    build: ./discount-calculator
+    restart: always
+    ports:
+      - "9000:9000"
+    networks:
+      back:
+        aliases:
+          - "discount-calculator.service.com.br"
+    depends_on:
+      - arango
+
   arango:
     image: arangodb:3.6
     ports:
@@ -15,3 +39,4 @@ services:
 
 networks:
   back:
+    driver: bridge
