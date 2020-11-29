@@ -21,8 +21,8 @@ func TestController(t *testing.T) {
 	sut := NewController(userColl, productColl)
 	g.Expect(err).ShouldNot(HaveOccurred())
 	t.Run("calculating a discount", func(t *testing.T) {
-		userCollection := MockCollection(g, UserCollection)
-		productCollection := MockCollection(g, ProductCollection)
+		userCollection := MockAndTruncateCollection(g, UserCollection)
+		productCollection := MockAndTruncateCollection(g, ProductCollection)
 		userDocMeta, err := userCollection.CreateDocument(nil, fakeUser())
 		g.Expect(err).ShouldNot(HaveOccurred())
 		productDocMeta, err := productCollection.CreateDocument(nil, fakeProduct())

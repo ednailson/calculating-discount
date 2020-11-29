@@ -17,12 +17,17 @@ const DBPortTest = 8529
 const ProductCollection = "product-collection"
 const UserCollection = "user-collection"
 
+func MockAndTruncateCollection(g *GomegaWithT, collName string) driver.Collection {
+	coll := MockCollection(g, collName)
+	err := coll.Truncate(nil)
+	g.Expect(err).ToNot(HaveOccurred())
+	return coll
+}
+
 func MockCollection(g *GomegaWithT, collName string) driver.Collection {
 	db, err := MockClient(g).Database(nil, DBNameTest)
 	g.Expect(err).ToNot(HaveOccurred())
 	coll, err := db.Collection(nil, collName)
-	g.Expect(err).ToNot(HaveOccurred())
-	err = coll.Truncate(nil)
 	g.Expect(err).ToNot(HaveOccurred())
 	return coll
 }

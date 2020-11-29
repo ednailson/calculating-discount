@@ -27,7 +27,7 @@ func TestCollection(t *testing.T) {
 	})
 
 	t.Run("reading a document by id", func(t *testing.T) {
-		arangoColl := MockCollection(g, testCollection)
+		arangoColl := MockAndTruncateCollection(g, testCollection)
 		document := map[string]string{"name": "Albert", "nickname": "Einstein"}
 		docCreated, err := arangoColl.CreateDocument(nil, document)
 		g.Expect(err).ShouldNot(HaveOccurred())
