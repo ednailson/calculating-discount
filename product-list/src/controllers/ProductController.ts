@@ -19,8 +19,7 @@ export default class ProductController {
 
 
         let commandProducts: Product[] = []
-        for (let i = 0; i < products.length; i++) {
-            const product = products[i]
+        for (let product of products) {
             let discount: Discount = new Discount()
             await calculateDiscount(userId, product._key).then((result) => {
                 discount = result
