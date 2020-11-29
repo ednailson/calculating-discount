@@ -12,7 +12,7 @@
 
     bash init.sh
 
-It will running the product-list service on the **port** `3333`
+It will be running the product-list service on the **port** `3333`
 
 ### Application
 
@@ -22,7 +22,7 @@ user birthday or if it is black friday).
 
 ##### Dump
 
-The services does not have an way to create users or products. So I have created a dump for the database.
+The services do not have a way to create users or products. So I have created a dump for the database.
 
 You can check out the [products](dump_db/products.json) and the [users](dump_db/users.json) created [here](dump_db).
 
@@ -96,24 +96,24 @@ This service uses gRPC for communication.
 
 ##### Receive
 
-* product_id: The ID of a product
-* user_id: The ID of a user
+* **product_id**: The product's ID
+* **user_id**: The user's ID
 
 ##### Return
 
-* percentage: The percentage of the discount
-* value_in_cents: The value of the discount in cents
+* **percentage**: The percentage of the discount
+* **value_in_cents**: The value of the discount in cents
 
 ## Development
 
 ### Technologies
 
 The database chose was the [ArangoDB](https://www.arangodb.com/) as a multi-model database it brings a few more
-features then the MongoDB.
+features than the MongoDB.
 
-The discount-calculator service was built in GoLang and the product-list was built in NodeJS.
+The discount-calculator service was built in GoLang, and the product-list was built in NodeJS.
 
-It was chose the docker-compose service to join all the microservices and the database. 
+It was chose the docker and docker-compose service to join all the microservices and the database. 
 
 # Contact
 
