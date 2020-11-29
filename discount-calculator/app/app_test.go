@@ -43,7 +43,7 @@ func TestApp(t *testing.T) {
 
 func fakeConfig() Config {
 	return Config{
-		Port: 9000,
+		Port: 9001,
 		Database: Database{
 			Config: database.Config{
 				Host:     DBHostTest,
@@ -52,8 +52,8 @@ func fakeConfig() Config {
 				Password: DBPassTest,
 				Database: DBNameTest,
 			},
-			UserCollection:    UserCollection,
-			ProductCollection: ProductCollection,
+			UserCollection:    UserCollection + "-app",
+			ProductCollection: ProductCollection + "-app",
 		},
 	}
 }
