@@ -4,6 +4,6 @@ import { credentials } from "grpc"
 const port = 9000
 
 export const client = new DiscountServiceClient(
-    `localhost:${port}`,
+    `discount-calculator.service.com.br:${port}`,
     credentials.createInsecure()
 )
