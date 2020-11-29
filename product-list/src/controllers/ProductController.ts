@@ -29,7 +29,7 @@ export default class ProductController {
             let discount: Discount = new Discount()
             await calculateDiscount(user._key, product._key).then((result) => {
                 discount = result
-            })
+            }).catch(() => {})
             const commandProduct: Product = {
                 description: product.description,
                 title: product.title,
