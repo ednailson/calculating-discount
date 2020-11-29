@@ -10,14 +10,14 @@
 
 ### Running
 
-    docker-compose up
+    bash init.sh
 
 It will running the product-list service on the **port** `3333`
 
 ### Application
 
 As required it has 2 microservices. The first one is an API that communicates with another microservice via gRPC asking
-for the product discount. This last service calculates the discount according with the date (if it is the user birthday
+for the product discount. This last service calculates the discount according to the date (if it is the user birthday
 or if it is black friday).
 
 ## Product List Service

@@ -26,9 +26,12 @@ services:
       - arango
 
   arango:
-    image: arangodb:3.6
+    image: arangodb:3.7.2
     ports:
       - "8529:8529"
+    volumes:
+      - arango_data_vol:/var/lib/arangodb3
+      - ./dump_db:/opt/tools
     environment:
       ARANGO_ROOT_PASSWORD: "dummyPass"
       ARANGO_STORAGE_ENGINE: rocksdb
@@ -37,6 +40,11 @@ services:
         aliases:
           - "arangodb.service.com.br"
 
+volumes:
+  arango_data_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+
 networks:
   back:
-    driver: bridge
