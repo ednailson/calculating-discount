@@ -21,11 +21,11 @@ func CreateProduct(price int, title, description string) Product {
 	}
 }
 
-func (p *Product) CalculateDiscount(user User) (float32, float32) {
+func (p *Product) CalculateDiscount(user *User) (float32, float32) {
 	if isBlackFriday() {
 		return 10, float32(p.PriceInCents) * 0.1
 	}
-	if user.IsBirthday() {
+	if user != nil && user.IsBirthday() {
 		return 5, float32(p.PriceInCents) * 0.05
 	}
 	return 0, 0

@@ -46,6 +46,7 @@ func TestProduct(t *testing.T) {
 	})
 }
 
-func fakeUser(date time.Time) User {
-	return CreateUser("Albert", "Einstein", date)
+func fakeUser(date time.Time) *User {
+	user := CreateUser("Albert", "Einstein", date)
+	return &user
 }

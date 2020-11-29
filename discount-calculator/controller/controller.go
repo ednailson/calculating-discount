@@ -20,13 +20,15 @@ func NewController(userColl, productColl database.Collection) *Controller {
 
 func (c *Controller) CalculateDiscount(userId, productId string) (*Discount, error) {
 	userRead, err := c.userColl.ReadById(userId)
-	if err != nil {
+	if err != nil && err != database.ErrNotFound {
 		return nil, err
 	}
-	var user domain.User
-	err = jsonDecoder(userRead, &user)
-	if err != nil {
-		return nil, err
+	var user *domain.User
+	if userRead != nil {
+		err = jsonDecoder(userRead, &user)
+		if err != nil {
+			return nil, err
+		}
 	}
 	productRead, err := c.productColl.ReadById(productId)
 	if err != nil {

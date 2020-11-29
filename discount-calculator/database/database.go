@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
-	"github.com/pkg/errors"
 	"strconv"
 )
 
@@ -18,28 +17,28 @@ func NewDatabase(config Config) (Database, error) {
 		TLSConfig: &tls.Config{},
 	})
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to connect to database")
+		return nil, ErrConnecting
 	}
 	client, err := driver.NewClient(driver.ClientConfig{
 		Connection:     dbConn,
 		Authentication: driver.BasicAuthentication(config.User, config.Password)})
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to get a database client")
+		return nil, ErrConnecting
 	}
 	dbExists, err := client.DatabaseExists(nil, config.Database)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to check if database exists")
+		return nil, ErrInitDatabase
 	}
 	var db driver.Database
 	if !dbExists {
 		db, err = client.CreateDatabase(nil, config.Database, nil)
 		if err != nil {
-			return nil, errors.Wrap(err, "failed to create database")
+			return nil, ErrInitDatabase
 		}
 	}
 	db, err = client.Database(nil, config.Database)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to get database")
+		return nil, ErrInitDatabase
 	}
 	return &dbDriver{
 		db: db,

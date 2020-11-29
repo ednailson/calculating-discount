@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/arangodb/go-driver"
+	"github.com/sirupsen/logrus"
 )
 
 type collection struct {
@@ -11,13 +12,13 @@ type collection struct {
 func newCollection(name string, db driver.Database) (*collection, error) {
 	exist, err := db.CollectionExists(nil, name)
 	if err != nil {
-		return nil, err
+		return nil, ErrInitCollection
 	}
 	var coll driver.Collection
 	if !exist {
 		coll, err = db.CreateCollection(nil, name, nil)
 		if err != nil {
-			return nil, err
+			return nil, ErrInitCollection
 		}
 	}
 	coll, err = db.Collection(nil, name)
@@ -30,7 +31,11 @@ func (c *collection) ReadById(id string) (interface{}, error) {
 	var data map[string]interface{}
 	_, err := c.coll.ReadDocument(nil, id, &data)
 	if err != nil {
-		return nil, err
+		if driver.IsNotFound(err) {
+			return nil, ErrNotFound
+		}
+		logrus.WithField("error", err).Errorf("failed to read by id")
+		return nil, ErrReadById
 	}
 	return data, nil
 }
