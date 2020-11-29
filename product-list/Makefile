@@ -7,7 +7,7 @@ help: ## This help.
 
 default: help
 
-up-deps: ## Install projects dependecies with GOMOD
+up-deps: ## Install projects dependecies
 	yarn
 
 docker-build: ## Build docker image
