@@ -5,4 +5,4 @@ WORKDIR /app
 COPY ./ /app/
 RUN go mod tidy
 RUN go build -o ./ ./
-ENTRYPOINT ["/app/discount-calculator"]
+ENTRYPOINT ["/app/discount-calculator", "run"]

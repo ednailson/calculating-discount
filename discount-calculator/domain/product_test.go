@@ -32,7 +32,7 @@ func TestProduct(t *testing.T) {
 		g.Expect(discount).Should(BeEquivalentTo(10))
 		g.Expect(value).Should(BeEquivalentTo(200))
 	})
-	t.Run("it is not birthday", func(t *testing.T) {
+	t.Run("it is birthday", func(t *testing.T) {
 		date := time.Date(2020, 11, 28, 10, 47, 30, 0, time.UTC)
 		time_now.ReplaceFunctionTime(func() time.Time {
 			return date

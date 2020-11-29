@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/arangodb/go-driver"
+	. "github.com/ednailson/hash-challenge/discount-calculator/helper_tests"
 	. "github.com/onsi/gomega"
 	"testing"
 )
@@ -10,7 +10,7 @@ const testCollection = "test-collection"
 
 func TestCollection(t *testing.T) {
 	g := NewGomegaWithT(t)
-	db, err := NewDatabase(fakeDbConfig())
+	db, err := NewDatabase(FakeDbConfig())
 	g.Expect(err).ShouldNot(HaveOccurred())
 
 	t.Run("validate the collection creation", func(t *testing.T) {
@@ -18,8 +18,8 @@ func TestCollection(t *testing.T) {
 
 		g.Expect(err).ShouldNot(HaveOccurred())
 		g.Expect(sut).ShouldNot(BeNil())
-		arangoClient := mockClient(g, fakeDbConfig())
-		arangoClientDB, err := arangoClient.Database(nil, fakeDbConfig().Database)
+		arangoClient := MockClient(g)
+		arangoClientDB, err := arangoClient.Database(nil, FakeDbConfig().Database)
 		g.Expect(err).ShouldNot(HaveOccurred())
 		exists, err := arangoClientDB.CollectionExists(nil, testCollection)
 		g.Expect(err).ShouldNot(HaveOccurred())
@@ -27,7 +27,7 @@ func TestCollection(t *testing.T) {
 	})
 
 	t.Run("reading a document by id", func(t *testing.T) {
-		arangoColl := mockCollection(g, fakeDbConfig(), testCollection)
+		arangoColl := MockCollection(g, testCollection)
 		document := map[string]string{"name": "Albert", "nickname": "Einstein"}
 		docCreated, err := arangoColl.CreateDocument(nil, document)
 		g.Expect(err).ShouldNot(HaveOccurred())
@@ -42,15 +42,4 @@ func TestCollection(t *testing.T) {
 		g.Expect(assert["name"]).Should(BeEquivalentTo(document["name"]))
 		g.Expect(assert["nickname"]).Should(BeEquivalentTo(document["nickname"]))
 	})
-}
-
-func mockCollection(g *GomegaWithT, config Config, collName string) driver.Collection {
-	client := mockClient(g, config)
-	db, err := client.Database(nil, config.Database)
-	g.Expect(err).ToNot(HaveOccurred())
-	coll, err := db.Collection(nil, collName)
-	g.Expect(err).ToNot(HaveOccurred())
-	err = coll.Truncate(nil)
-	g.Expect(err).ToNot(HaveOccurred())
-	return coll
 }
