@@ -4,7 +4,11 @@ import (
 	"encoding/json"
 	"github.com/ednailson/hash-challenge/discount-calculator/database"
 	"github.com/ednailson/hash-challenge/discount-calculator/domain"
+	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
 )
+
+var ErrDecodingData = errors.New("failed to decode data from database")
 
 type Controller struct {
 	userColl    database.Collection
@@ -49,7 +53,13 @@ func (c *Controller) CalculateDiscount(userId, productId string) (*Discount, err
 func jsonDecoder(from, to interface{}) error {
 	body, err := json.Marshal(from)
 	if err != nil {
-		return err
+		log.WithError(err).Errorf("failed to marshal data")
+		return ErrDecodingData
 	}
-	return json.Unmarshal(body, &to)
+	err = json.Unmarshal(body, &to)
+	if err != nil {
+		log.WithError(err).Errorf("failed to unmarshal data")
+		return ErrDecodingData
+	}
+	return nil
 }
