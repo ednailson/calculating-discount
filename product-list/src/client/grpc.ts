@@ -1,8 +1,9 @@
 import { DiscountServiceClient } from "../../proto/discount_grpc_pb"
 import { credentials } from "grpc"
-import config from "../../config.json"
+
+const port = 9000
 
 export const client = new DiscountServiceClient(
-    config.discount_list_host,
+    `discount-calculator.service.com.br:${port}`,
     credentials.createInsecure()
 )
