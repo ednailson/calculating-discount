@@ -104,6 +104,25 @@ This service uses gRPC for communication.
 * **percentage**: The percentage of the discount
 * **value_in_cents**: The value of the discount in cents
 
+## Tests
+
+For running the tests you must have [GoLang 1.15](https://golang.org/doc/install) installed
+
+### Running
+
+Before running the tests you must run the `init.sh` script (it will run all the required services)
+
+    bash init.sh
+
+The tests are on the `discount-caculator` folder
+
+    cd discount-calculator
+    make tests
+
+P.S.: The tests truncate the database collections. So the dump created on the initialization will be deleted.
+If you want the dump again. You must remove all the running services (`docker-compose down`) and re-run the init 
+command (`bash init.sh`)
+
 ## Development
 
 ### Technologies
@@ -117,4 +136,4 @@ It was chose the docker and docker-compose service to join all the microservices
 
 # Contact
 
-[LinkedIn](https://www.linkedin.com/in/ednailsonvb/) | [WebSite](ednailson.github.io) | ednailsoncunha@gmail.com
+[LinkedIn](https://www.linkedin.com/in/ednailsonvb/) | [WebSite](http://ednailson.github.io) | ednailsoncunha@gmail.com
