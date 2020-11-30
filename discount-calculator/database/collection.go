@@ -27,15 +27,15 @@ func newCollection(name string, db driver.Database) (*collection, error) {
 	}, nil
 }
 
-func (c *collection) ReadById(id string) (interface{}, error) {
-	var data map[string]interface{}
-	_, err := c.coll.ReadDocument(nil, id, &data)
+func (c *collection) ReadById(id string, data interface{}) error {
+	_, err := c.coll.ReadDocument(nil, id, data)
 	if err != nil {
 		if driver.IsNotFound(err) {
-			return nil, ErrNotFound
+			return ErrNotFound
 		}
+		log.Infof(err.Error())
 		log.WithField("error", err).Errorf("failed to read by id")
-		return nil, ErrReadById
+		return ErrReadById
 	}
-	return data, nil
+	return nil
 }

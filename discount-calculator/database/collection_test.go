@@ -1,8 +1,11 @@
 package database
 
 import (
+	"github.com/ednailson/hash-challenge/discount-calculator/domain"
 	. "github.com/ednailson/hash-challenge/discount-calculator/helper_tests"
+	"github.com/ednailson/hash-challenge/discount-calculator/time_now"
 	. "github.com/onsi/gomega"
+	. "github.com/onsi/gomega/gstruct"
 	"testing"
 )
 
@@ -28,18 +31,22 @@ func TestCollection(t *testing.T) {
 
 	t.Run("reading a document by id", func(t *testing.T) {
 		arangoColl := MockAndTruncateCollection(g, testCollection)
-		document := map[string]string{"name": "Albert", "nickname": "Einstein"}
-		docCreated, err := arangoColl.CreateDocument(nil, document)
+		date := time_now.Now()
+		user := domain.CreateUser("Albert", "Einstein", date)
+		docCreated, err := arangoColl.CreateDocument(nil, user)
 		g.Expect(err).ShouldNot(HaveOccurred())
 		coll, err := db.Collection(testCollection)
 		g.Expect(err).ShouldNot(HaveOccurred())
 
-		sut, err := coll.ReadById(docCreated.Key)
+		var assert domain.User
+		err = coll.ReadById(docCreated.Key, &assert)
 
 		g.Expect(err).ShouldNot(HaveOccurred())
-		assert, ok := sut.(map[string]interface{})
-		g.Expect(ok).Should(BeTrue())
-		g.Expect(assert["name"]).Should(BeEquivalentTo(document["name"]))
-		g.Expect(assert["nickname"]).Should(BeEquivalentTo(document["nickname"]))
+		g.Expect(assert).Should(MatchAllFields(Fields{
+			"Id":          BeEquivalentTo(docCreated.Key),
+			"FirstName":   BeEquivalentTo("Albert"),
+			"LastName":    BeEquivalentTo("Einstein"),
+			"DateOfBirth": BeEquivalentTo(date),
+		}))
 	})
 }

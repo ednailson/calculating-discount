@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"github.com/ednailson/hash-challenge/discount-calculator/domain"
 	. "github.com/ednailson/hash-challenge/discount-calculator/helper_tests"
+	"github.com/ednailson/hash-challenge/discount-calculator/time_now"
 	. "github.com/onsi/gomega"
 	"io/ioutil"
 	"net/http"
 	"testing"
-	"time"
 )
 
 type productCommand struct {
@@ -56,7 +56,7 @@ func TestIntegration(t *testing.T) {
 }
 
 func fakeUser() domain.User {
-	return domain.CreateUser("Nikola", "Tesla", time.Now().UTC().AddDate(-30, 0, 0))
+	return domain.CreateUser("Nikola", "Tesla", time_now.Now().AddDate(-30, 0, 0))
 }
 
 func fakeProduct() domain.Product {

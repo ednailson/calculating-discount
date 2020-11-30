@@ -5,5 +5,5 @@ type Database interface {
 }
 
 type Collection interface {
-	ReadById(id string) (interface{}, error)
+	ReadById(id string, data interface{}) error
 }
