@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-const DBHostTest = "http://arangodb.service.com.br"
+const DBHostTest = "http://localhost"
 const DBNameTest = "hash-db"
 const DBPassTest = "dummyPass"
 const DBUserTest = "root"

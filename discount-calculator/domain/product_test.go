@@ -32,7 +32,7 @@ func TestProduct(t *testing.T) {
 		g.Expect(discount).Should(BeEquivalentTo(10))
 		g.Expect(value).Should(BeEquivalentTo(200))
 	})
-	t.Run("it is birthday", func(t *testing.T) {
+	t.Run("calculate discount on its birthday", func(t *testing.T) {
 		date := time.Date(2020, 11, 28, 10, 47, 30, 0, time.UTC)
 		time_now.ReplaceFunctionTime(func() time.Time {
 			return date
@@ -43,6 +43,18 @@ func TestProduct(t *testing.T) {
 
 		g.Expect(discount).Should(BeEquivalentTo(5))
 		g.Expect(value).Should(BeEquivalentTo(100))
+	})
+	t.Run("calculate none discount", func(t *testing.T) {
+		date := time.Date(2020, 11, 28, 10, 47, 30, 0, time.UTC)
+		time_now.ReplaceFunctionTime(func() time.Time {
+			return date
+		})
+		sut := CreateProduct(2000, "Notebook Gamer", "A great notebook")
+
+		discount, value := sut.CalculateDiscount(fakeUser(date.AddDate(-21, -1, 0)))
+
+		g.Expect(discount).Should(BeEquivalentTo(0))
+		g.Expect(value).Should(BeEquivalentTo(0))
 	})
 }
 

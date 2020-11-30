@@ -23,4 +23,5 @@ docker-build: ## Build docker image
 
 tests: ## Run project tests
 	mkdir -p ./test/cover
-	gotestsum --format testname -- --race -coverpkg= ./... -coverprofile=./test/cover/cover.out -v
+	go test -race -coverpkg= ./... -coverprofile=./test/cover/cover.out
+	go tool cover -html=./test/cover/cover.out -o ./test/cover/cover.html
