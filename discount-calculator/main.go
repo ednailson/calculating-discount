@@ -67,6 +67,7 @@ func runApplication(flagConfig string) error {
 	if err := errors.Wrap(config.Scan(&cfg), "failed to read from config file"); err != nil {
 		return err
 	}
+	log.SetLevel(log.Level(cfg.LogLevel))
 	application, err := app.LoadApp(cfg)
 	if err != nil {
 		return err

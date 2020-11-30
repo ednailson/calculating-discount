@@ -10,7 +10,7 @@ import (
 
 func TestProduct(t *testing.T) {
 	g := NewGomegaWithT(t)
-	t.Run("creating a new user", func(t *testing.T) {
+	t.Run("creating a new product", func(t *testing.T) {
 		sut := CreateProduct(1799, "Notebook Gamer", "A great notebook")
 
 		g.Expect(sut).Should(MatchAllFields(Fields{

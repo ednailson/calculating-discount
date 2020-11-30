@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/arangodb/go-driver"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 type collection struct {
@@ -34,7 +34,7 @@ func (c *collection) ReadById(id string) (interface{}, error) {
 		if driver.IsNotFound(err) {
 			return nil, ErrNotFound
 		}
-		logrus.WithField("error", err).Errorf("failed to read by id")
+		log.WithField("error", err).Errorf("failed to read by id")
 		return nil, ErrReadById
 	}
 	return data, nil

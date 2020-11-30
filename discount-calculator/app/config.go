@@ -7,6 +7,7 @@ import (
 )
 
 type Config struct {
+	LogLevel int      `json:"log_level"`
 	Port     int      `json:"port"`
 	Database Database `json:"database"`
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ednailson/hash-challenge/discount-calculator/controller"
 	"github.com/ednailson/hash-challenge/discount-calculator/server/discount"
+	"github.com/pkg/errors"
 	"net"
 
 	"google.golang.org/grpc"
@@ -17,7 +18,7 @@ type server struct {
 func CreateServer(ctrl *controller.Controller, port int) (Server, error) {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, fmt.Sprintf("failed to listen on port %d", port))
 	}
 	discountServer := discount.CreateDiscountServer(ctrl)
 	grpcServer := grpc.NewServer()

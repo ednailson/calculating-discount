@@ -1,5 +1,6 @@
 {
   "port": 9000,
+  "log_level": 4,
   "database": {
     "config": {
       "host": "http://arangodb.service.com.br",

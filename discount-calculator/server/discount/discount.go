@@ -2,7 +2,7 @@ package discount
 
 import (
 	"github.com/ednailson/hash-challenge/discount-calculator/controller"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 )
 
@@ -17,13 +17,13 @@ func CreateDiscountServer(ctrl *controller.Controller) *Server {
 }
 
 func (s *Server) CalculateDiscount(ctx context.Context, info *Info) (*Discount, error) {
-	logrus.WithFields(logrus.Fields{"user_id": info.UserId, "product_id": info.ProductId}).Infof("new request to calculate discount")
+	log.WithFields(log.Fields{"user_id": info.UserId, "product_id": info.ProductId}).Debugf("new request to calculate discount")
 	discount, err := s.ctrl.CalculateDiscount(info.UserId, info.ProductId)
 	if err != nil {
-		logrus.WithField("error", err).Errorf("failed to calculate discount")
+		log.WithField("error", err).Errorf("failed to calculate discount")
 		return nil, err
 	}
-	logrus.WithFields(logrus.Fields{"discount": discount}).Infof("discount calculated")
+	log.WithFields(log.Fields{"discount": discount}).Debugf("discount calculated")
 	return &Discount{
 		Percentage:   discount.Percentage,
 		ValueInCents: discount.ValueInCents,
