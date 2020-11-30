@@ -1,0 +1,15 @@
+{
+  "port": 9000,
+  "log_level": 4,
+  "database": {
+    "config": {
+      "host": "http://arangodb.service.com.br",
+      "port": 8529,
+      "user": "root",
+      "password": "dummyPass",
+      "database": "hash-db"
+    },
+    "user_collection": "user-collection",
+    "product_collection": "product-collection"
+  }
+}

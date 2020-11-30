@@ -1,0 +1,6 @@
+{"_id": "product-collection/1","_key": "1", "price_in_cents":200000,"title":"Notebook Gamer","description":"A great notebook"}
+{"_id": "product-collection/2","_key": "2", "price_in_cents":100000,"title":"Phone Gamer","description":"A great phone"}
+{"_id": "product-collection/3","_key": "3", "price_in_cents":345000,"title":"Monitor 21 pol","description":"A beautiful monitor"}
+{"_id": "product-collection/4","_key": "4", "price_in_cents":213000,"title":"Notebook Dell","description":"The fastest dell notebook"}
+{"_id": "product-collection/5","_key": "5", "price_in_cents":879000,"title":"MacBook Air","description":"The new MacBook Air"}
+{"_id": "product-collection/6","_key": "6", "price_in_cents":799000,"title":"iPad Pro","description":"The new iPad"}

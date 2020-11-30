@@ -13,3 +13,8 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+.idea
+discount-calculator/vendor
+discount-calculator/go.sum
+product-list/node_modules
