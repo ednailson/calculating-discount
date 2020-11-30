@@ -127,12 +127,18 @@ command (`bash init.sh`)
 
 ### Technologies
 
-The database chose was the [ArangoDB](https://www.arangodb.com/) as a multi-model database it brings a few more
-features than the MongoDB.
+1. The database chose was the [**ArangoDB**](https://www.arangodb.com/) as a multi-model database it brings a few more
+features than the MongoDB. The ArangoDB also works with documents so the development is very similar to the MongoDB. 
 
-The discount-calculator service was built in GoLang, and the product-list was built in NodeJS.
+2. **Express** library to create the http server on the **product-list** service.
 
-It was chose the docker and docker-compose service to join all the microservices and the database. 
+## Design
+
+The design was based on the layers architecture. 
+
+It was divided the domain (where it is the business rules), the database (where it connects to the database service), 
+the server (where it brings the gRPC server), the controller (where it brings the domain and the database service together)
+and the application (where it serves everything together).
 
 # Contact
 
